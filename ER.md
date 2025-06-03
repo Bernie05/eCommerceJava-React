@@ -1,11 +1,11 @@
 User
     One to Many With address - A user can have a multiple addresses.
     Many to Many with Coupon - Users can use multiple coupons, and a coupon can be used by multiple users.
-    One to Many with card - Each user has one cart
-    One to Many with order - A user can have multiple orders.
+    One to One with cart - Each user has one cart
+    One to Many with Order - A user can have multiple orders.
     One to Many with Review - A user can leave a multiple reviews.
     One to Many with Transaction - A use r can have a multiple Transaction
-    One to Many With Wishlist - Each user has one wishlist
+    One to One With Wishlist - Each user has one wishlist
 
 Address
     Many to one with user - An address belongs to one user
@@ -18,3 +18,52 @@ Cart
 CartItem
     Many to One with Cart: A Cart item belongs to one cart.
     Many to One with Product: A cart item refers to one product.
+
+Product
+    Many to One with Category: A product belong to one category
+    Many to One with Seller: A product is sold by one seller
+    One to Many with Review: A product can have multiple reviews.
+
+Category
+    Many to one with Category: A category can have a parent category(or a sub categories)
+
+Coupon
+    Many to many with User: A coupon can be used by multiple user
+
+Order
+    Many to One with User: An order belong to one user.
+    One to Many with OrderItem: an order can have multiple order item.
+    Many to one with Address: an order has one shipping address.
+
+OrderItem
+    Many to one with Order: An order item belongs to one order.
+    Many to one with Product: An order has one shipping address
+
+PaymentOrder
+    Many to One with User: A payment oder belongs to one user
+    One to Many with Order: A payment order can include multiple orders.
+
+Seller
+    One to One with Address: A seller has one pickup address.
+    One to Many with Product: A seller can sell multiple products.
+    One to Many with Transaction: a seller can be involved in multiple transaction
+
+Transaction
+    Many to one with User: A transaction is associated with one user.
+    Many to one with Seller: A transaction associated with one seller.
+    One to One with User: A transaction corresponds to one order.
+
+Review
+    Many to One with Product: A review is for one product
+    Many to One with User: A review is written by one user.
+
+Wishlist
+    One to One with product: Each user has one wishlist
+    Many to Many with Product: A wishlist can contain multiple products.
+
+VerificationCode
+    One to One with User: A verification code can be associated with one user.
+    One to One with Seller: A verification code can be asscociated with one seller.
+
+SellerReport
+    One to one with Seller: A report corresponds to one seller.
