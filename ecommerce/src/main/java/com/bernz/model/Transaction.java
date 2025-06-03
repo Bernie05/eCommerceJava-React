@@ -1,18 +1,21 @@
 package com.bernz.model;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import org.hibernate.annotations.ManyToAny;
+
+import com.bernz.domain.USER_ROLE;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,30 +28,19 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class Review {
+public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
-    private String reviewText;
-
-    @Column(nullable = false)
-    private double rating;
-
-    @ElementCollection
-    private List<String> productImages;
-
-    @JsonIgnore
     @ManyToOne
-    @Column(nullable = false)
-    private Product product;
+    private User customer;
+
+    @OneToOne
+    private Order order;
 
     @ManyToOne
-    @Column( nullable = false)
-    private User user;
+    private Seller seller;
 
-    @Column(nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
-
+    private LocalDateTime date = LocalDateTime.now();
 }
