@@ -3,15 +3,15 @@ package com.bernz.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.bernz.domain.PaymentMethod;
+import com.bernz.domain.PaymentOrderStatus;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -24,20 +24,21 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class Category {
+public class PaymentOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
+    private Long amount;
 
-    @NotNull
-    @Column(unique = true)
-    private String categoryId;
+    private PaymentOrderStatus status = PaymentOrderStatus.PENDING;
+    private PaymentMethod paymentMethod;
+
+    private String paymentLinkId;
 
     @ManyToOne
-    private Category parentCategory;
+    private User user;
 
-    @NotNull
-    private Integer level;
+    @OneToMany
+    private Set<Order> order = new HashSet<>();
 }
