@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bernz.domain.USER_ROLE;
 import com.bernz.model.User;
 import com.bernz.repository.UserRepository;
+import com.bernz.response.AuthResponse;
 import com.bernz.response.SignupRequest;
+import com.bernz.service.impl.AuthService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,17 +21,18 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 
     private final UserRepository userRepository;
+    private final AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<User> createUserHandler(@RequestBody SignupRequest req) {
-        User user = new User();
-        user.setEmail(req.getEmail());
-        user.setFullName(req.getFullname());
+    public ResponseEntity<AuthResponse> createUserHandler(@RequestBody SignupRequest req) {
+    
+        String jwt = authService.createUser(req);
 
-        System.out.println(user.toString());
+        AuthResponse res = new AuthResponse();
+        res.setJwt(jwt);
+        res.setMessage("Register Success");
+        res.setRole(USER_ROLE.ROLE_CUSTOMER);
 
-        User savedUser = userRepository.save(user);
-
-        return ResponseEntity.ok(savedUser);
+        return ResponseEntity.ok(res);
     }
 }
