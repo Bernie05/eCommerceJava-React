@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bernz.domain.USER_ROLE;
-import com.bernz.model.User;
 import com.bernz.repository.UserRepository;
 import com.bernz.response.AuthResponse;
 import com.bernz.response.SignupRequest;
