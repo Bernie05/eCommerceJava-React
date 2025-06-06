@@ -11,9 +11,14 @@ import com.bernz.config.JwtProvider;
 import com.bernz.domain.USER_ROLE;
 import com.bernz.model.Cart;
 import com.bernz.model.User;
+import com.bernz.model.VerificationCode;
 import com.bernz.repository.CartRepository;
 import com.bernz.repository.UserRepository;
+import com.bernz.repository.VerificationCodeRepository;
 import com.bernz.response.SignupRequest;
+import com.bernz.service.AuthService;
+import com.bernz.service.EmailService;
+import com.bernz.utils.OtpUtil;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,12 +35,21 @@ public class AuthServiceImpl implements AuthService {
     private final CartRepository cartRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
+    private final VerificationCodeRepository verificationCodeRepository;
+    private final EmailService emailService;
 
     @Override
-    public String createUser(SignupRequest req) {
-        // Check in repository
+    public String createUser(SignupRequest req) throws Exception {
+        // Get the needed information
         String email = req.getEmail();
         String fullName = req.getFullname();
+        String otp = req.getOtp();
+
+        // Verification
+        VerificationCode verificationCode = verificationCodeRepository.findByEmail(email);
+        if (verificationCode == null || !verificationCode.getOtp().equals(otp) ) {
+            throw new Exception("Wrong otp");
+        }
     
         User user = userRepository.findByEmail(email);
 
@@ -47,6 +61,7 @@ public class AuthServiceImpl implements AuthService {
             createdUser.setRole(USER_ROLE.ROLE_CUSTOMER);
             createdUser.setMobile("09");
             createdUser.setPassword(passwordEncoder.encode(req.getOtp()));
+            
             createdUser = userRepository.save(user);
 
             // After creating the user we need to create a Cart
@@ -66,5 +81,36 @@ public class AuthServiceImpl implements AuthService {
 
         // Return the generated token
         return jwtProvider.generateToken(authentication);
+    }
+
+    @Override
+    public void sendLoginOtp(String email) throws Exception {
+        String SIGNNIG_PREFIX = "signin_";
+
+        if (email.startsWith(SIGNNIG_PREFIX)) {
+            email = email.substring(SIGNNIG_PREFIX.length()); // Ex. signin_test -> test
+
+            User user = userRepository.findByEmail(email);
+            if (user == null) {
+                throw new Exception("User not exist with provided email");
+            }
+        }
+
+        VerificationCode vrCode = verificationCodeRepository.findByEmail(email);
+        if (vrCode != null) {
+            verificationCodeRepository.delete(vrCode);
+        }
+
+        // Generate otp & Save
+        String otp = OtpUtil.generateOtp();
+        VerificationCode verificationCode = new VerificationCode();
+        verificationCode.setOtp(otp);
+        verificationCode.setEmail(email);
+        verificationCodeRepository.save(verificationCode);
+
+        // Sending the otp verification
+        String subject = "Subject test login/sign up otp";
+        String text = "Your login/signup otp is - " + otp;
+        emailService.sendVerificationOtpEmail(email, otp, subject, text);
     }
 }
