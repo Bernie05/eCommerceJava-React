@@ -15,9 +15,10 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/users/profile")
+    @GetMapping("/user/profile")
     public ResponseEntity<User> getUserProfileHandler(@RequestHeader("Authorization") String jwt) throws Exception {
-        User user = userService.findByJwtToken(jwt);
+        System.out.println("#JWT: " + jwt);
+        User user = userService.findUserByJwtToken(jwt);
         
         return ResponseEntity.ok(user);
     }

@@ -1,5 +1,6 @@
 package com.bernz.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bernz.config.JwtProvider;
@@ -12,13 +13,13 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private UserRepository userRepository;
-    private JwtProvider jwtProvider;
+    private final UserRepository userRepository;
+    private final JwtProvider jwtProvider;
 
     @Override
-    public User findByJwtToken(String jwt) throws Exception {
+    public User findUserByJwtToken(String jwt) throws Exception {
         String email = jwtProvider.getEmailFromJwtToken(jwt);
-        User user = findByEmail(email);
+        User user = findUserByEmail(email);
 
         if (user == null) {
             throw new Exception("User not found with email - " + email);
@@ -28,7 +29,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByEmail(String email) throws Exception {
+    public User findUserByEmail(String email) throws Exception {
         User user = userRepository.findByEmail(email);
         if(user == null) {
             throw new Exception("User not found with email - " + email);

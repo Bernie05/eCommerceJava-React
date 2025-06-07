@@ -14,8 +14,10 @@ import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class JwtProvider {
     // Create a secret key for sining and verifying the JWTs
     SecretKey key = Keys.hmacShaKeyFor(jwtConstant.SECRET_KEY.getBytes());
@@ -38,10 +40,10 @@ public class JwtProvider {
 
     public String getEmailFromJwtToken(String jwt) {
         // Remove the Bearer
-        if (jwt.startsWith("Bearer")) {
-            jwt = jwt.substring(7);
-        }
-       
+        jwt = jwt.substring(7);
+
+        System.out.println("#getEmailFromJwtToken: " + jwt);
+
         // Extract the claims payload data
         Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
 
