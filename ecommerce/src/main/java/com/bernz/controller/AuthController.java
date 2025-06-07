@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bernz.domain.USER_ROLE;
 import com.bernz.model.VerificationCode;
 import com.bernz.repository.UserRepository;
+import com.bernz.request.LoginRequest;
 import com.bernz.response.ApiResponse;
 import com.bernz.response.AuthResponse;
 import com.bernz.response.SignupRequest;
@@ -27,25 +28,32 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> createUserHandler(@RequestBody SignupRequest req) throws Exception {
         AuthResponse res = null;
-            String jwt = authService.createUser(req);
+        String jwt = authService.createUser(req);
 
-            res = new AuthResponse();
-            res.setJwt(jwt);
-            res.setMessage("Register Success");
-            res.setRole(USER_ROLE.ROLE_CUSTOMER);
+        res = new AuthResponse();
+        res.setJwt(jwt);
+        res.setMessage("Register Success");
+        res.setRole(USER_ROLE.ROLE_CUSTOMER);
 
-            return ResponseEntity.ok(res);
+        return ResponseEntity.ok(res);
     }
 
-     @PostMapping("/sent/login-signup/otp")
+    @PostMapping("/sent/login-signup/otp")
     public ResponseEntity<ApiResponse> sendOtpHandler(@RequestBody VerificationCode req) throws Exception {
-            ApiResponse res = null;
-            String email = req.getEmail();
+        ApiResponse res = null;
+        String email = req.getEmail();
 
-            authService.sendLoginOtp(email);
-            res = new ApiResponse();
-            res.setMessage("OTP sent successfully");
+        authService.sendLoginOtp(email);
+        res = new ApiResponse();
+        res.setMessage("OTP sent successfully");
 
-            return ResponseEntity.ok(res);
+        return ResponseEntity.ok(res);
+    }
+
+    @PostMapping("/signing")
+    public ResponseEntity<AuthResponse> loginHandler(@RequestBody LoginRequest req) throws Exception {
+        AuthResponse authResponse = authService.signingUser(req);
+
+        return ResponseEntity.ok(authResponse);
     }
 }
