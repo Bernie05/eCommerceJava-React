@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 import com.bernz.config.JwtProvider;
 import com.bernz.domain.USER_ROLE;
 import com.bernz.model.Cart;
+import com.bernz.model.Seller;
 import com.bernz.model.User;
 import com.bernz.model.VerificationCode;
 import com.bernz.repository.CartRepository;
+import com.bernz.repository.SellerRepository;
 import com.bernz.repository.UserRepository;
 import com.bernz.repository.VerificationCodeRepository;
 import com.bernz.request.LoginRequest;
@@ -38,6 +40,7 @@ import lombok.RequiredArgsConstructor;
 public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final CartRepository cartRepository;
+    private final SellerRepository sellerRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
     private final VerificationCodeRepository verificationCodeRepository;
@@ -54,7 +57,6 @@ public class AuthServiceImpl implements AuthService {
         // Verification
         VerificationCode verificationCode = verificationCodeRepository.findByEmail(email);
 
-        System.out.println("otp: " + verificationCode.toString());
         if (verificationCode == null || !verificationCode.getOtp().equals(otp) ) {
             throw new Exception("Wrong otp");
         }
@@ -93,17 +95,26 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void sendLoginOtp(String email) throws Exception {
-        String SIGNNIG_PREFIX = "signin_";
+    public void sendLoginOtp(String email, USER_ROLE role) throws Exception {
+        String SIGNNIG_PREFIX = "signing_";
+        
+        if (USER_ROLE.ROLE_CUSTOMER.equals(role)) {
+            if (email.startsWith(SIGNNIG_PREFIX)) {
+                email = email.substring(SIGNNIG_PREFIX.length()); // Ex. signin_test -> test
 
-        if (email.startsWith(SIGNNIG_PREFIX)) {
-            email = email.substring(SIGNNIG_PREFIX.length()); // Ex. signin_test -> test
-
-            User user = userRepository.findByEmail(email);
-            if (user == null) {
-                throw new Exception("User not exist with provided email");
+                User user = userRepository.findByEmail(email);
+                if (user == null) {
+                    throw new Exception("User not exist with provided email");
+                }
             }
         }
+        else {
+            Seller seller = sellerRepository.findByEmail(email);
+            if (seller == null) {
+                throw new Exception("Seller not found");
+            }
+        }
+
 
         VerificationCode vrCode = verificationCodeRepository.findByEmail(email);
         if (vrCode != null) {

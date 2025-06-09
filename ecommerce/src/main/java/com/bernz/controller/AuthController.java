@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bernz.domain.USER_ROLE;
-import com.bernz.model.VerificationCode;
 import com.bernz.repository.UserRepository;
+import com.bernz.request.LoginOtpRequest;
 import com.bernz.request.LoginRequest;
 import com.bernz.response.ApiResponse;
 import com.bernz.response.AuthResponse;
@@ -22,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final UserRepository userRepository;
     private final AuthService authService;
 
     @PostMapping("/signup")
@@ -34,16 +33,16 @@ public class AuthController {
         res.setJwt(jwt);
         res.setMessage("Register Success");
         res.setRole(USER_ROLE.ROLE_CUSTOMER);
-
         return ResponseEntity.ok(res);
     }
 
     @PostMapping("/sent/login-signup/otp")
-    public ResponseEntity<ApiResponse> sendOtpHandler(@RequestBody VerificationCode req) throws Exception {
+    public ResponseEntity<ApiResponse> sendOtpHandler(@RequestBody LoginOtpRequest req) throws Exception {
         ApiResponse res = null;
         String email = req.getEmail();
-
-        authService.sendLoginOtp(email);
+        USER_ROLE userRole = req.getRole();
+    
+        authService.sendLoginOtp(email, userRole);
         res = new ApiResponse();
         res.setMessage("OTP sent successfully");
 
