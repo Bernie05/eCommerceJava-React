@@ -140,6 +140,8 @@ public class AuthServiceImpl implements AuthService {
         String username = req.getEmail();
         String otp = req.getOtp();
 
+        System.out.println("userName: " + username);
+        System.out.println("otp: " + otp);
         // Set the authentication within the context
         Authentication authentication = authenticate(username, otp);
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -168,7 +170,8 @@ public class AuthServiceImpl implements AuthService {
             throw new BadCredentialsException("Invalid username or password");
         }
 
-        VerificationCode verificationCode = verificationCodeRepository.findByEmail(username);
+        // Issue if there is a multiple otp - after cofirming the otp it should be delete
+        VerificationCode verificationCode = verificationCodeRepository.findByEmail(userDetails.getUsername());
 
         if(verificationCode == null || !verificationCode.getOtp().equals(otp)) {
             throw new BadCredentialsException("Wrong Otp");
