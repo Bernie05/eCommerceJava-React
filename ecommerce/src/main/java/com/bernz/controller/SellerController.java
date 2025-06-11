@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bernz.config.JwtProvider;
 import com.bernz.domain.AccountStatus;
+import com.bernz.exceptions.SellerException;
 import com.bernz.model.Seller;
 import com.bernz.model.VerificationCode;
 import com.bernz.repository.VerificationCodeRepository;
@@ -62,7 +63,7 @@ public class SellerController {
         return new ResponseEntity<>(seller, HttpStatus.OK);
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Seller> createSeller(@RequestBody Seller seller) throws Exception {
         System.out.println("Create Seller1");
         // Creation of Seller
@@ -85,13 +86,14 @@ public class SellerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Seller> getSellerById(@PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<Seller> getSellerById(@PathVariable("id") Long id) throws SellerException {
         Seller seller = sellerService.getSellerById(id);
         return new ResponseEntity<>(seller, HttpStatus.OK);
     }
 
     @GetMapping("/profile")
     public ResponseEntity<Seller> getSellerByJwt(@RequestHeader("Authorization") String jwt) throws Exception {
+        System.out.println("getSeller By JWT "  + jwt);
         Seller seller = sellerService.getSellerProfile(jwt);
         return new ResponseEntity<>(seller, HttpStatus.OK);
     }
@@ -103,20 +105,21 @@ public class SellerController {
     //     return new ResponseEntity<>(sellerReport, HttpStatus.OK);
     // }
 
-    // @GetMapping()
-    // public ResponseEntity<List<Seller>> getAllSellers(@RequestParam(required = false) AccountStatus status) throws Exception {
-    //     List<Seller> sellers = sellerService.getAllSeller(status);
-    //     return new ResponseEntity<>(sellers, HttpStatus.OK);
-    // }
+    @GetMapping
+    public ResponseEntity<List<Seller>> getAllSellers(@RequestParam(name = "status", required = false) AccountStatus status) throws Exception {
+        List<Seller> sellers = sellerService.getAllSeller(status);
+        return new ResponseEntity<>(sellers, HttpStatus.OK);
+    }
 
-    // @PatchMapping()
-    // public ResponseEntity<Seller> updateSeller(@RequestHeader("Authorization") String jwt, Seller seller) throws Exception {
-    //     Seller profile = sellerService.getSellerProfile(jwt);
+    @PatchMapping
+    public ResponseEntity<Seller> updateSeller(@RequestHeader("Authorization") String jwt, @RequestBody Seller seller) throws Exception {
+        System.out.println("#seller: " + seller.getMobile());
+        Seller profile = sellerService.getSellerProfile(jwt);
 
-    //     // Update
-    //     Seller updatedSeller = sellerService.updateSeller(profile.getId(), seller);
-    //     return new ResponseEntity<>(updatedSeller, HttpStatus.OK);
-    // }
+        // Update
+        Seller updatedSeller = sellerService.updateSeller(profile.getId(), seller);
+        return new ResponseEntity<>(updatedSeller, HttpStatus.OK);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSeller(@PathVariable("id") Long id) throws Exception {
