@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.bernz.config.JwtProvider;
 import com.bernz.domain.AccountStatus;
 import com.bernz.domain.USER_ROLE;
+import com.bernz.exceptions.SellerException;
 import com.bernz.model.Address;
 import com.bernz.model.BankDetails;
 import com.bernz.model.BusinessDetails;
@@ -65,9 +66,9 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
-    public Seller getSellerById(Long id) throws Exception {
+    public Seller getSellerById(Long id) throws SellerException {
         return sellerRepository.findById(id)
-            .orElseThrow(() -> new Exception("Seller not found id: " + id));
+            .orElseThrow(() -> new SellerException("Seller not found id: " + id));
     }
 
     @Override
@@ -121,7 +122,7 @@ public class SellerServiceImpl implements SellerService {
         }
 
         if (mobile != null) {
-            existingSeller.setMobile(sellerName);
+            existingSeller.setMobile(mobile);
         }
 
         if (email != null) {
@@ -141,9 +142,9 @@ public class SellerServiceImpl implements SellerService {
         if (address != null && pickUpAddress != null && pickUpCity != null && pickUpMobile!= null && pickUpPinCode != null && pickUpState != null) {
             existingSeller.getPickupAddress().setAddress(pickUpAddress);
             existingSeller.getPickupAddress().setCity(pickUpCity);
-            existingSeller.getPickupAddress().setMobileNumber(mobile);
+            existingSeller.getPickupAddress().setMobileNumber(pickUpMobile);
             existingSeller.getPickupAddress().setPinCode(pickUpPinCode);
-            existingSeller.getPickupAddress().setPinCode(pickUpPinCode);
+            existingSeller.getPickupAddress().setState(pickUpState);
         }
 
         if (GSTIN != null) {
