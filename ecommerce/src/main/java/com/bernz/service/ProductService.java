@@ -7,10 +7,10 @@ import org.springframework.data.domain.Page;
 import com.bernz.exceptions.ProductException;
 import com.bernz.model.Product;
 import com.bernz.model.Seller;
-import com.bernz.request.CreateProduct;
+import com.bernz.request.CreateProductRequest;
 
 public interface ProductService {
-    public Product createProduct(CreateProduct req, Seller seller) throws ProductException ;
+    public Product createProduct(CreateProductRequest request, Seller seller) throws ProductException ;
     public void deleteProduct(Long productId) throws ProductException ;
     public Product updateProduct(Long productId, Product product) throws ProductException ;
     public Product findProductById(Long productId) throws ProductException ;
