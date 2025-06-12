@@ -115,8 +115,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> searchProducts(String name) throws ProductException {
-        return List.of();
+    public List<Product> searchProducts(String query) throws ProductException {
+        return productRepository.searchProduct(query);
     }
 
     @Override
@@ -180,8 +180,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProductBySellerId(Long sellerId) throws ProductException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getProductBySellerId'");
+        return productRepository.findBySellerId(sellerId);
     }
     
     
