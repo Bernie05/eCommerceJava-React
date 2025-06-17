@@ -2,7 +2,6 @@ package com.bernz.controller;
 
 import java.util.List;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,7 +32,7 @@ public class SellerProductController {
     private final ProductService productService;
     private final SellerService sellerService;
     private final UserService userService;
-    private final CategoryService categorySerice;
+    // private final CategoryService categorySerice;
 
     // 8:39:34
     @GetMapping()
