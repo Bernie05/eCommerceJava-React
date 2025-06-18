@@ -17,7 +17,7 @@ import com.bernz.model.Product;
 import com.bernz.model.Seller;
 import com.bernz.repository.CategoryRepository;
 import com.bernz.repository.ProductRepository;
-import com.bernz.request.CreateProduct;
+import com.bernz.request.CreateProductRequest;
 import com.bernz.service.ProductService;
 
 import jakarta.persistence.criteria.Join;
@@ -42,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product createProduct(CreateProduct req, Seller seller) throws ProductException {
+    public Product createProduct(CreateProductRequest req, Seller seller) throws ProductException {
         Category category1 = categoryRepository.findByCategoryId(req.getCategory());
 
         if (category1 == null) {
@@ -80,7 +80,7 @@ public class ProductServiceImpl implements ProductService {
 
         Product product = new Product();
 
-        product.setTitle(req.toString());
+        product.setTitle(req.getTitle());
         product.setDescription(req.getDescription());
         product.setMrpPrice(mrpPrice);
         product.setSellingPrice(sellingPrice);
@@ -182,6 +182,4 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getProductBySellerId(Long sellerId) throws ProductException {
         return productRepository.findBySellerId(sellerId);
     }
-    
-    
 }
