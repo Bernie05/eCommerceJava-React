@@ -10,7 +10,7 @@ import com.bernz.model.Seller;
 import com.bernz.request.CreateProductRequest;
 
 public interface ProductService {
-    public Product createProduct(CreateProductRequest request, Seller seller) throws ProductException ;
+    public Product createProduct(CreateProductRequest req, Seller seller) throws ProductException ;
     public void deleteProduct(Long productId) throws ProductException ;
     public Product updateProduct(Long productId, Product product) throws ProductException ;
     public Product findProductById(Long productId) throws ProductException ;
