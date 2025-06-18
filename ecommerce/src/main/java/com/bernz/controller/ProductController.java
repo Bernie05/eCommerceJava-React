@@ -25,7 +25,7 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/{productId}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long productId) throws ProductException {
+    public ResponseEntity<Product> getProductById(@PathVariable("productId") Long productId) throws ProductException {
         Product product = productService.findProductById(productId);
 
         return new ResponseEntity<>(product, HttpStatus.OK);
@@ -40,12 +40,18 @@ public class ProductController {
     }
     
     @GetMapping
-    public ResponseEntity<Page<Product>> getAllProducts(@RequestParam(required = false)  String category, @RequestParam(required = false)  String brand,
-                                                        @RequestParam(required = false)  String color, @RequestParam(required = false)  String size,
-                                                        @RequestParam(required = false)  Integer minPrice,@RequestParam(required = false)  Integer maxPrice,
-                                                        @RequestParam(required = false)  Integer minDiscount, @RequestParam(required = false)  String sort,
-                                                        @RequestParam(required = false)  String stock, @RequestParam(defaultValue = "0")  Integer pageNumber
-                                                    ) throws ProductException {
+    public ResponseEntity<Page<Product>> getAllProducts(
+        @RequestParam(name = "category", required = false) String category,
+        @RequestParam(name = "brand", required = false) String brand,
+        @RequestParam(name = "color", required = false) String color,
+        @RequestParam(name = "size", required = false) String size,
+        @RequestParam(name = "minPrice", required = false) Integer minPrice,
+        @RequestParam(name = "maxPrice", required = false) Integer maxPrice,
+        @RequestParam(name = "minDiscount", required = false) Integer minDiscount,
+        @RequestParam(name = "sort", required = false) String sort,
+        @RequestParam(name = "stock", required = false) String stock,
+        @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber
+  ) throws ProductException {
         return new ResponseEntity<>(
             productService.getAllProducts(category, brand, color, size, minPrice, maxPrice, minDiscount, sort, stock, pageNumber), HttpStatus.OK);
     }

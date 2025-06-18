@@ -27,14 +27,13 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/sellers/products")
+@RequestMapping("/sellers/products")
 public class SellerProductController {
     private final ProductService productService;
     private final SellerService sellerService;
     private final UserService userService;
     // private final CategoryService categorySerice;
 
-    // 8:39:34
     @GetMapping()
     public ResponseEntity<List<Product>> getProductBySellerId(@RequestHeader("Authorization") String jwt) throws ProductException, SellerException {
         Seller seller = sellerService.getSellerProfile(jwt);
