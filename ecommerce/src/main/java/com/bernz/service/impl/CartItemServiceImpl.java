@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 public class CartItemServiceImpl implements CartItemService{
     private final CartItemRepository cartItemRepository;
 
-    // 9:27:57
     @Override
     public CartItem updateCartItem(Long userId, Long id, CartItem cartItem) throws Exception {
         CartItem item = findCartItemById(id);

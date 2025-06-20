@@ -28,6 +28,7 @@ public class CartServiceImpl implements CartService {
             newCartItem.setProduct(product);
             newCartItem.setQuantity(quantity);
             newCartItem.setUserId(user.getId());
+            newCartItem.setMrpPrice(quantity * product.getMrpPrice());
             newCartItem.setSize(size);
             newCartItem.setSellingPrice(quantity * product.getSellingPrice());
 
@@ -37,7 +38,7 @@ public class CartServiceImpl implements CartService {
             // set to have fk
             newCartItem.setCart(cart);
             
-            return cartItemRepository.save(cartItem);
+            return cartItemRepository.save(newCartItem);
         }
 
         return cartItem;
@@ -66,7 +67,7 @@ public class CartServiceImpl implements CartService {
 
         
     public int calculateDiscountPercentage(int mrpPrice, int sellingPrice) {
-        if (mrpPrice <= 0) {
+        if (mrpPrice < 0) {
             throw new IllegalArgumentException("Actual price must be greater than 0");
         }
 
