@@ -19,12 +19,14 @@ import com.bernz.config.JwtProvider;
 import com.bernz.domain.AccountStatus;
 import com.bernz.exceptions.SellerException;
 import com.bernz.model.Seller;
+import com.bernz.model.SellerReport;
 import com.bernz.model.VerificationCode;
 import com.bernz.repository.VerificationCodeRepository;
 import com.bernz.request.LoginRequest;
 import com.bernz.response.AuthResponse;
 import com.bernz.service.AuthService;
 import com.bernz.service.EmailService;
+import com.bernz.service.SellerReportService;
 import com.bernz.service.SellerService;
 import com.bernz.utils.OtpUtil;
 
@@ -39,7 +41,7 @@ public class SellerController {
     private final SellerService sellerService;
     private final VerificationCodeRepository verificationCodeRepository;
     private final AuthService authService;
-    private final JwtProvider jwtProvider;
+    private final SellerReportService sellerReportService;
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> loginSeller(@RequestBody LoginRequest req) throws Exception {
@@ -98,12 +100,12 @@ public class SellerController {
         return new ResponseEntity<>(seller, HttpStatus.OK);
     }
     
-    // @GetMapping("/report")
-    // public ResponseEntity<SellerReport> getSellerReport(@RequestHeader("Authorization") String jwt) throws Exception {
-    //     Seller seller = sellerService.getSellerProfile(jwt);
-    //     SellerReport sellerReport = sellerReportService.getSellerReport(seller);
-    //     return new ResponseEntity<>(sellerReport, HttpStatus.OK);
-    // }
+    @GetMapping("/report")
+    public ResponseEntity<SellerReport> getSellerReport(@RequestHeader("Authorization") String jwt) throws Exception {
+        Seller seller = sellerService.getSellerProfile(jwt);
+        SellerReport sellerReport = sellerReportService.getSellerReport(seller);
+        return new ResponseEntity<>(sellerReport, HttpStatus.OK);
+    }
 
     @GetMapping
     public ResponseEntity<List<Seller>> getAllSellers(@RequestParam(name = "status", required = false) AccountStatus status) throws Exception {
