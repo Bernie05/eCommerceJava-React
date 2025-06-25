@@ -22,15 +22,19 @@ import com.bernz.model.Address;
 import com.bernz.model.Cart;
 import com.bernz.model.Order;
 import com.bernz.model.OrderItem;
+import com.bernz.model.PaymentOrder;
 import com.bernz.model.Seller;
 import com.bernz.model.SellerReport;
 import com.bernz.model.User;
+import com.bernz.repository.PaymentOrderRepository;
 import com.bernz.response.PaymentLinkResponse;
 import com.bernz.service.CartService;
 import com.bernz.service.OrderService;
+import com.bernz.service.PaymentService;
 import com.bernz.service.SellerReportService;
 import com.bernz.service.SellerService;
 import com.bernz.service.UserService;
+import com.razorpay.PaymentLink;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,10 +47,9 @@ public class OrderController {
     private final CartService cartService;
     private final SellerService sellerService;
     private final SellerReportService sellerReportService;
-
-    // private final PaymentOrderService paymentService;
+    private final PaymentService paymentService;
+    private final PaymentOrderRepository paymentOrderRepository;
     
-    // 10:28:00
     @PostMapping()
     public ResponseEntity<PaymentLinkResponse> createOrderHandler(
         @RequestBody Address shippingAddress,
@@ -60,14 +63,26 @@ public class OrderController {
         Cart cart = cartService.findUserCart(user);
 
         // Create a order
-        // Set<Order> orders = orderService.createOrder(user, shippingAddress, cart);
+        Set<Order> orders = orderService.createOrder(user, shippingAddress, cart);
          
         // Create payment order
-        // PaymentOrder paymentOrder = paymentService.createOrder(user, orders);
+        PaymentOrder paymentOrder = paymentService.createOrder(user, orders);
 
         PaymentLinkResponse res = new PaymentLinkResponse();
 
-        // Check on what type of payment they choose
+        if(paymentMethod.equals(PaymentMethod.RAZORPAY)) {
+            PaymentLink paymentLink = paymentService.createRazorpayPaymentLink(user, paymentOrder.getAmount(), paymentOrder.getId());
+            String paymentUrl = paymentLink.get("short_url");
+            String paymentUrlId = paymentLink.get("id");
+            
+            res.setPayment_link_url(paymentUrl);
+            paymentOrder.setPaymentLinkId(paymentUrlId);
+            paymentOrderRepository.save(paymentOrder);
+        }
+        else {
+            String paymentUrl = paymentService.createStripPaymentLink(user,  paymentOrder.getAmount(), paymentOrder.getId());
+            res.setPayment_link_url(paymentUrl);
+        }
 
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
