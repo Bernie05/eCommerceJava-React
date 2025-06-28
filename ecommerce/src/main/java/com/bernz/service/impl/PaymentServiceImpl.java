@@ -30,12 +30,10 @@ public class PaymentServiceImpl implements PaymentService {
     private final PaymentOrderRepository paymentOrderRepository;
     private final OrderRepository orderRepository;
 
-    // 
     private String apiKey = "apikey";
     private String apiSecret = "apiSecret";
     private String stripeSecretKey = "stripeSecretKey";
 
-    // 11:00:01
     @Override
     public PaymentOrder createOrder(User user, Set<Order> orders) {
         // Add all orders
