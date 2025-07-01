@@ -62,7 +62,6 @@ public class ReviewController {
         return new ResponseEntity<>(review, HttpStatus.OK);
     }
 
-    // here 12:22:30
     @DeleteMapping("/product/{reviewId}")
     public ResponseEntity<ApiResponse> deleteReview(@PathVariable("reviewId") Long reviewId, @RequestHeader("Authorization") String jwt) throws Exception {
         User user = userService.findUserByJwtToken(jwt);
