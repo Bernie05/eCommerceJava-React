@@ -113,3 +113,17 @@ Home Page Management
 
 Deal Management
     Update and customize the home page through the admin panel.
+
+
+
+Frontend Setup
+Creation
+npx create-react-app [name of project] --template typescript
+
+Dependency
+tailwind: https://v3.tailwindcss.com/docs/installation
+npm install -D tailwindcss
+npm tailwindcss init
+
+https://mui.com/material-ui/getting-started/installation/
+install mui
