@@ -56,7 +56,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public PaymentOrder getPaymentOrderByPaymentId(String paymentId) throws Exception {
-        PaymentOrder paymentOrder = paymentOrderRepository.findByPaymentnLinkId(paymentId);
+        PaymentOrder paymentOrder = paymentOrderRepository.findByPaymentLinkId(paymentId);
 
         if (paymentOrder == null) {
             throw new Exception("Payment order not found with provided paymennt link id");
