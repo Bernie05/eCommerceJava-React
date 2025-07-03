@@ -25,7 +25,7 @@ public class CouponServiceImpl implements CouponService {
 
     @Override
     public Cart applyCoupon(String code, double orderValue, User user) throws Exception {
-        Coupon coupon = couponRepository.findByCouponCode(code);
+        Coupon coupon = couponRepository.findByCode(code);
         Cart cart = cartRepository.findByUserId(user.getId());
 
         if (coupon == null) {
@@ -60,7 +60,7 @@ public class CouponServiceImpl implements CouponService {
 
     @Override
     public Cart removeCoupon(String code, User user) throws Exception {
-       Coupon coupon = couponRepository.findByCouponCode(code);
+       Coupon coupon = couponRepository.findByCode(code);
 
        if (coupon == null) {
             throw new Exception("Coupon is already used");
