@@ -10,16 +10,22 @@ const Navbar = () => {
   return (
     <div>
       <Box>
+   
         {/* Main div */}
         <div className='flex items-center justify-between px-5 lg:px-20 h-[70px] border-b'>
+ 
           {/* Burger, Logo and categories */}
           <div className="flex items-center gap-9">
+
             {/* Burger and Logo */}
             <div className='flex items-center gap-2'>
+
                 {/* Burger Menu */}
-                <IconButton>
-                    <MenuIcon />
-                </IconButton>
+                {!isLarge && (
+                  <IconButton>
+                      <MenuIcon />
+                  </IconButton>
+                )}
 
                 {/* Logo */}
                 <h1 className='logo cursor-pointer text-lg md:text-2xl text-primary-color'>
