@@ -52,7 +52,7 @@ const Navbar = () => {
 
             {/* Profile and User info */}
             {
-              true? (
+              !isLarge? (
                 // Profile 
                 <Button className='flex items-center gap-2'>
                   <Avatar 
@@ -66,8 +66,8 @@ const Navbar = () => {
                 </Button>
               ) : (
                 // Login button
-                <Button>
-
+                <Button variant='contained'>
+                  Login
                 </Button>
               )
             }

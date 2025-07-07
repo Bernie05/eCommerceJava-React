@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Navbar from './customer/components/Navbar/Navbar';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from '@mui/material/styles';
 import customTheme from './Theme/customTheme';
 import Home from './customer/pages/Home/Home';
 
