@@ -127,3 +127,28 @@ npm tailwindcss init
 
 https://mui.com/material-ui/getting-started/installation/
 install mui
+
+Font
+http://fonts.google.com/selection/embed
+html add this
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+Css file
+.[your target element] {
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+React slick
+https://react-slick.neostack.com/docs/get-started
+npm install react-slick --save
+npm install slick-carousel --save
+
+import this on the file that will used
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+npm i --save-dev @types/react-slick

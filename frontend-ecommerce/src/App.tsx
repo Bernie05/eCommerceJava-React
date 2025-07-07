@@ -10,6 +10,7 @@ function App() {
       <ThemeProvider theme={customTheme}>
         <div>
           <Navbar />
+          {/* 14:33:39 */}
           <Home />
         </div>
       </ThemeProvider>
