@@ -7,8 +7,23 @@ export const mainCategory = [
         level: 1,
     },
     {
+        name: "Women", 
+        categoryId: "women",
+        level: 1,
+    },
+    {
+        name: "Electronics", 
+        categoryId: "electronics",
+        level: 1,
+    },
+    {
         name: "Home & Furniture", 
-        categoryId: "home_furniture",
+        categoryId: "home",
+        level: 1,
+    },
+    {
+        name: "Beauty",
+        categoryId: "beauty",
         level: 1,
     }
-]
+];
