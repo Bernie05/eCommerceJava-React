@@ -2,14 +2,19 @@ import { Avatar, Box, Button, IconButton, useMediaQuery, useTheme } from '@mui/m
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { AddShoppingCart, FavoriteBorder, Storefront } from '@mui/icons-material';
+import CategorySheet from './CategorySheet';
+import { useState } from 'react';
+import { mainCategory } from '../../../data/category/mainCategory';
 
 const Navbar = () => {
   const theme = useTheme();
   const isLarge = useMediaQuery(theme.breakpoints.up("lg"));
+  const [currHover, setCurrHover] = useState<string>("men");
+  const [showCategory, setShowCategory] = useState<boolean>(false);
 
   return (
-    <div>
-      <Box>
+    <>
+      <Box className="sticky top-0 left-0 right-0 bg-white" sx={{ zIndex: 2}}>
    
         {/* Main div */}
         <div className='flex items-center justify-between px-5 lg:px-20 h-[70px] border-b'>
@@ -36,9 +41,17 @@ const Navbar = () => {
             {/* For Categories */}
             <ul className="flex items-center font-medium text-gray-800">
               {
-                ["Men", "Women", "Home & Furniture", "Electronics"].map((category) => (
-                  <li className="mainCategory hover:text-primary-color hover:border-b-2 h-[70px] px-4 border-primary-color flex items-center">
-                    {category}
+                mainCategory.map((category) => (
+                  <li
+                    key={category.name}
+                    onMouseEnter={() => {
+                      setCurrHover(category.categoryId)
+                      setShowCategory(true);
+                    }}
+                    onMouseLeave={() => setShowCategory(false)}
+                    className="mainCategory hover:text-primary-color hover:border-b-2 h-[70px] px-4 border-primary-color flex items-center"
+                  >
+                    {category.name}
                   </li>
                 ))
               }
@@ -89,8 +102,19 @@ const Navbar = () => {
             }
           </div>
         </div>
+
+        {/* Show & hide div */}
+        {showCategory && (
+          <div 
+            onMouseLeave={() => setShowCategory(false)}
+            onMouseEnter={() => setShowCategory(true)}
+            className='categorySheet absolute top-[4.39rem] left-20 right-20 border'
+          >
+            <CategorySheet selectedCategory={currHover} />
+          </div>
+          )}
       </Box>
-    </div>
+    </>
   )
 }
 
