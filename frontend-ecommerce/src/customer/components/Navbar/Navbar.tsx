@@ -85,7 +85,7 @@ const Navbar = () => {
               )
             }
 
-            {/* Wishlist */}
+          {/* Wishlist */}
             <IconButton>
               <FavoriteBorder sx={{ fontSize: 29 }} />
             </IconButton>
