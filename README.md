@@ -152,3 +152,5 @@ import this on the file that will used
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 npm i --save-dev @types/react-slick
+
+npm i react-router-dom
