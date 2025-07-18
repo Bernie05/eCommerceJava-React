@@ -1,21 +1,29 @@
 import React, { useState } from 'react'
 import FilterSection from './FilterSection'
 import ProductCard from './ProductCard'
-import { Box, Divider, FormControl, IconButton, InputLabel, MenuItem, Select, useMediaQuery, useTheme } from '@mui/material'
+import { Box, Divider, FormControl, IconButton, InputLabel, MenuItem, Pagination, Select, useMediaQuery, useTheme } from '@mui/material'
 import { FilterAlt } from '@mui/icons-material'
 
 const Product = () => {
     const theme = useTheme();
     const isLarge = useMediaQuery(theme.breakpoints.up("lg"));
     const [sort, setSort] = useState();
+    const [page, setPage] = useState(1);
 
     const handleSortChange = (e : any) => {
+        setSort(e.target.value);
+    }
 
+    const handlePageChange = (value: number) => {
+        setPage(value);
     }
 
     return (
         <div className='-z-10 mt-10'>
+            {/* Header Title */}
             <h1 className='text-3xl text-center font-bold text-gray-800 pb-5 px-9 uppercase space-x-2'> Women T shirt</h1>
+
+            {/* Product */}
             <div className='lg: flex'>
                 {/* Filter Section Left */}
                 <section className="filterSection hidden lg:block w-[20%]">
@@ -59,6 +67,16 @@ const Product = () => {
                     >
                        {[1, 1, 1, 1, 1, 1].map(() => (  <ProductCard /> ))}
                     </section>
+
+                    {/* Pagination */}
+                    <div className='flex justify-center'>
+                        <Pagination 
+                            onChange={(e, value) => handlePageChange(value)}
+                            count={10} 
+                            variant="outlined"
+                            color="primary"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
