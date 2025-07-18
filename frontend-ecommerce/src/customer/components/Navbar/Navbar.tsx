@@ -5,6 +5,7 @@ import { AddShoppingCart, FavoriteBorder, Storefront } from '@mui/icons-material
 import CategorySheet from './CategorySheet';
 import { useState } from 'react';
 import { mainCategory } from '../../../data/category/mainCategory';
+import { useSearchParams } from 'react-router-dom';
 
 const Navbar = () => {
   const theme = useTheme();

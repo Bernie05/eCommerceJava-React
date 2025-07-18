@@ -2,16 +2,56 @@ import { Button, Divider, FormControl, FormControlLabel, FormLabel, Radio, Radio
 import React, { useState } from 'react'
 import { teal } from '@mui/material/colors'
 import { filterData } from '../../../data/filter/filterData';
-// import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const FilterSection = () => {
   const { colors, prices, discounts } = filterData;
   console.log( { colors, discounts })
   const [expandColor, setExpandColor] = useState(false);
-  // const [searchParams, setSearhParams] = useSearchParams();
-   
-  const updateFilterParams = () => {
+  const [searchParams, setSearhParams] = useSearchParams();
 
+  // section
+  const [color, setColor] = useState("");
+  const [price, setPrice] = useState("");
+  const [discount, setDiscount] = useState("");
+   
+  const updateFilterParams = (e: any) => {
+    const { value, name } = e.target;
+    console.log('UpdateFilter', { value, name })
+
+    if (value) {
+      searchParams.set(name, value);
+    }
+    else {
+      searchParams.delete(name);
+    }
+
+    updateValue(name, value);
+    setSearhParams(searchParams);
+  }
+
+  const clearAllFilters = () => {
+    console.log("Clear: ", searchParams)
+    clearSelection();
+    setSearhParams(new URLSearchParams());
+  }
+
+  const updateValue = (name: any, value: any) => {
+    if (name === 'color') {
+      setColor(value);
+    }
+    else if(name === "price") {
+      setPrice(value);
+    }
+    else {
+      setDiscount(value)
+    }
+  }
+
+  const clearSelection = () => {
+   setColor("");
+   setDiscount("");
+   setPrice("");
   }
 
   return (
@@ -23,7 +63,11 @@ const FilterSection = () => {
         <p className='text-lg font-semibold'>
           Filters
         </p>
-        <Button size='small' className="text-teal-600 cursor-pointer font-semibold">
+        <Button 
+          size='small' 
+          className="text-teal-600 cursor-pointer font-semibold"
+          onClick={clearAllFilters}
+        >
           clear all
         </Button>
       </div>
@@ -48,13 +92,15 @@ const FilterSection = () => {
             </FormLabel>
             <RadioGroup
               aria-labelledby='color'
+              onChange={updateFilterParams}
               defaultValue=""
               name="color"
+              value={color}
             >
               {colors.slice(0, expandColor ? colors.length : 5).map((color:any) => (
                 <FormControlLabel 
                   key={color.name} 
-                  value={color.value} 
+                  value={color.name} 
                   control={<Radio />} 
                   label={
                     <div className='flex items-center gap-3'>
@@ -96,9 +142,10 @@ const FilterSection = () => {
           </FormControl>
           <RadioGroup
             name="price"
-            onChange={() => updateFilterParams}
+            onChange={updateFilterParams}
             aria-labelledby='price'
             defaultValue=""
+            value={price}
           >
             {prices.map((price: any) => (
              <FormControlLabel 
@@ -131,9 +178,10 @@ const FilterSection = () => {
           </FormControl>
           <RadioGroup
             name="discount"
-            onChange={() => updateFilterParams}
+            onChange={updateFilterParams}
             aria-labelledby='discount'
             defaultValue=""
+            value={discount}
           >
             {discounts.map((price: any) => (
              <FormControlLabel 

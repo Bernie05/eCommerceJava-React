@@ -59,7 +59,7 @@ const CategorySheet = ({ selectedCategory } : any) => {
                   // Categoriess
                   filterChildByHeaderCategoryId(categoryThree[selectedCategory], headerCategory.categoryId).map((category: any) =>  (
                     <div>
-                      <li className='hover:text-primary-color cursor-pointer'>{category.name}</li>
+                      <li key={category.name} className='hover:text-primary-color cursor-pointer'>{category.name}</li>
                     </div>
                   ))
                 }
