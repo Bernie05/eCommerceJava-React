@@ -4,6 +4,7 @@ import { teal } from '@mui/material/colors';
 import { Button, Divider } from '@mui/material';
 import { Add, AddShoppingCart, FavoriteBorder, LocalShipping, Remove, Shield, Wallet, WorkspacePremium } from '@mui/icons-material';
 import SimilarProduct from './SimilarProduct';
+import ReviewCard from '../Review/ReviewCard';
 
 const ProductDetails = () => {
   let [quantity, setQuantity] = useState(1);
@@ -128,7 +129,7 @@ const ProductDetails = () => {
             </Button>
           </div>
 
-          {/*  */}
+          {/* Product Description */}
           <div className="mt-5">
             <p>Sample Description Sample Description Sample Description Sample Description Sample Description Sample Description
               Sample Description Sample Description Sample Description Sample Description Sample Description Sample Description
@@ -137,13 +138,16 @@ const ProductDetails = () => {
           </div>
 
           {/* Review Card */}
+          <div className='mt-12 space-y-5'>
+            <ReviewCard />
+            <Divider />
+          </div>
         </section>
       </div>
 
       {/* Similar Product */}
       <div className='mt-20'>
         <h1 className="text-lg font-bold">Similar Product</h1>
-
         <div className="pt-5">
           <SimilarProduct />
         </div>
