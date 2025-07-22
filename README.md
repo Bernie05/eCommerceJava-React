@@ -153,4 +153,14 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 npm i --save-dev @types/react-slick
 
+Handle the router
 npm i react-router-dom
+https://www.npmjs.com/package/react-router-dom
+
+Handle the form
+npm i formik
+https://www.npmjs.com/package/formik
+
+Handle the scheme form validation
+npm i yup
+https://www.npmjs.com/package/yup

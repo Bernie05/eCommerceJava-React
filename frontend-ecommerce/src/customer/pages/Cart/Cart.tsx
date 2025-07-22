@@ -19,7 +19,7 @@ const Cart = () => {
     }
 
     const handleRedirectCheckoutPage = () => {
-        
+
     }
 
     return (
@@ -31,6 +31,7 @@ const Cart = () => {
                         <CartItem />
                     ))}
                 </div>
+
                 {/* col-1 total of lg:grid-cols-3*/}
                 <div className='col-span-1 text-sm space-y-3'>
                     <div className='border rounded-md px-5 py-3 space-y-5'>
