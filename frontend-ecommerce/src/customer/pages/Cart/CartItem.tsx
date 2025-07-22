@@ -1,5 +1,5 @@
-import { Add, Remove } from '@mui/icons-material'
-import { Button, Divider } from '@mui/material'
+import { Add, Close, Remove } from '@mui/icons-material'
+import { Button, Divider, IconButton } from '@mui/material'
 import React, { useState } from 'react'
 
 const CartItem = () => {
@@ -28,6 +28,13 @@ const CartItem = () => {
                     <p className='text-sm'>7 days replacement available</p>
                     <p className='text-sm text-gray-500'><strong>quantity:</strong> 5</p>
                 </div>
+
+                                
+                <div className='absolute top-1 right-1'>
+                    <IconButton color="primary">
+                        <Close />
+                    </IconButton>
+                </div>
             </div>
             
             <Divider />
@@ -46,7 +53,7 @@ const CartItem = () => {
 
                 {/* Price */}
                 <div>
-                    <p className='text-gray-700 font-medium'>799</p>
+                    <p className='text-gray-700 font-medium'>PHP 799</p>
                 </div>
             </div>
         </div>
