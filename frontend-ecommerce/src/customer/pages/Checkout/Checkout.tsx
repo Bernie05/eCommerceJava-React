@@ -8,7 +8,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 500,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -28,7 +28,7 @@ const Checkout = () => {
                         {/* Header  */}
                         <div className='flex justify-between items-center'>
                             <h1 className="font-semibold">Select Address</h1>
-                            <Button>
+                            <Button onClick={handleOpen}>
                                 ADD NEW ADDRESS
                             </Button>
                         </div>
