@@ -3,7 +3,7 @@ import React from 'react'
 
 const PricingCard = () => {
   return (
-    <div className='px-5 py-3 space-y-4'>
+    <div className='px-5 py-3 space-y-4  max-h-79'>
         <div className='flex justify-between item-center'>
             <p>SubTotal</p>
             <span>PHP 1399</span>
@@ -26,7 +26,7 @@ const PricingCard = () => {
 
         <Divider />
 
-        <div className='flex justify-between item-center p-1'>
+        <div className='flex justify-between item-center p-1 text-primary-color'>
             <p>Total</p>
             <span>PHP 799</span>
         </div>
