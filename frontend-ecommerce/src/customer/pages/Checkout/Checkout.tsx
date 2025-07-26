@@ -7,7 +7,6 @@ import {
   Modal,
   Radio,
   RadioGroup,
-  Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 import AddressCard from "./AddressCard";
@@ -48,7 +47,7 @@ const Checkout = () => {
   const [paymentGateWay, seyPaymentGateWay] = useState("RAZORPAY");
 
   const handlePaymentChange = (e: any) => {
-   seyPaymentGateWay(e.target.value);
+    seyPaymentGateWay(e.target.value);
   };
 
   return (
@@ -62,6 +61,7 @@ const Checkout = () => {
               <Button onClick={handleOpen}>ADD NEW ADDRESS</Button>
             </div>
 
+            {/* 20:15:00 */}
             {/* Address Card */}
             <div className="text-xs font-medium space-y-5">
               <p>Saved Address</p>
