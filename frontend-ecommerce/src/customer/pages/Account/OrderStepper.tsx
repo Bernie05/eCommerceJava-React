@@ -95,7 +95,7 @@ const OrderStepper = ({ orderStatus }: any) => {
               )}
             </div>
 
-            {/* Details */}
+            {/* Details 21:00:00*/}
             <div className="ml-2 w-full">
               <div
                 className={`${
