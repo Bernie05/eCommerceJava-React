@@ -6,7 +6,7 @@ const AddressCard = () => {
 
   return (
     <div>
-      <div className="flex pt-5 border rounded-md">
+      <div className="flex p-5 border rounded-md">
         <div>
           <Radio
             checked={true}
