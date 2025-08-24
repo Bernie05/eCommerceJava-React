@@ -11,20 +11,23 @@ import Cart from './customer/pages/Cart/Cart';
 import Checkout from './customer/pages/Checkout/Checkout';
 import Account from './customer/pages/Account/Account';
 import OrderDetails from './customer/pages/Account/OrderDetails';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
       <ThemeProvider theme={customTheme}>
+        <Navbar />
         <div>
-          <Navbar />
-          {/* <Home /> */}
-          {/* <Product /> */}
-          {/* <ProductDetails /> */}
-          {/* <Review /> */}
-          {/* <Cart /> */}
-          {/* <Checkout /> */}
-          <Account />
-          {/* <OrderDetails /> */}
+          <Routes>
+            <Route path="/" element={<Home />}/>
+            <Route path="/product/:category" element={<Product />} />
+            <Route path="/review/:productId" element={<Review />} />
+            <Route path="/product-details/:categoryId/:name/:productId" element={<ProductDetails />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+
+            <Route path="/account/*" element={<Account />} />
+          </Routes>
         </div>
       </ThemeProvider>
   );

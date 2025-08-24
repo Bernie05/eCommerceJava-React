@@ -9,6 +9,7 @@ import { electronicsLevelThree } from "../../../data/category/LevelThree/electro
 import { homeFurnitureLevelThree } from "../../../data/category/LevelThree/homeFurnitureLevelThree";
 import { beautyLevelThree } from "../../../data/category/LevelThree/beautyLevelThree";
 import { Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 // Level 1 all header
 // {
@@ -36,6 +37,8 @@ const categoryThree: { [key: string]: any[] } = {
 };
 
 const CategorySheet = ({ selectedCategory }: any) => {
+  const navigate = useNavigate();
+
   const filterChildByHeaderCategoryId = (
     category: any,
     parentCategoryId: string
@@ -68,6 +71,7 @@ const CategorySheet = ({ selectedCategory }: any) => {
                 ).map((category: any) => (
                   <div>
                     <li
+                      onClick={() => navigate(`/product/${category.categoryId}`)}
                       key={category.name}
                       className="hover:text-primary-color cursor-pointer"
                     >
