@@ -61,6 +61,7 @@ const Account = () => {
           ))}
         </section>
         <section className="right lg:col-span-2 lg:pl-5 py-5">
+          {/* The * that we added on the App.tsx will able to access all of this routes */}
           <Routes>
             <Route path="/" element={<UserDetails />} />
             <Route path="/orders" element={<Orders />} />
