@@ -25,6 +25,10 @@ const Navbar = () => {
   const [showCategory, setShowCategory] = useState<boolean>(false);
   const navigate = useNavigate();
 
+  const redirectTo = (targetUrl: string) => {
+    navigate(targetUrl)
+  }
+
   return (
     <>
       <Box className="sticky top-0 left-0 right-0 bg-white" sx={{ zIndex: 2 }}>
@@ -42,7 +46,7 @@ const Navbar = () => {
               )}
 
               {/* Logo */}
-              <h1 onClick={() => navigate('/')} className="logo cursor-pointer text-lg md:text-2xl text-primary-color">
+              <h1 onClick={() => redirectTo('/')} className="logo cursor-pointer text-lg md:text-2xl text-primary-color">
                 Bernz Bazzar
               </h1>
             </div>
@@ -74,7 +78,7 @@ const Navbar = () => {
             {true ? (
               // Profile
               <Button 
-                onClick={() => navigate(`/account/orders`)}
+                onClick={() => redirectTo(`/account/orders`)}
                 className="flex items-center gap-2">
                 <Avatar sx={{ width: 29, height: 29 }} src="" />
                 {/* Name of user */}
@@ -89,7 +93,7 @@ const Navbar = () => {
             <IconButton>
               <FavoriteBorder sx={{ fontSize: 29 }} />
             </IconButton>
-            <IconButton onClick={() => navigate('/cart')}>
+            <IconButton onClick={() => redirectTo('/cart')}>
               <AddShoppingCart
                 className="text-gray-700"
                 sx={{ fontSize: 29 }}
@@ -98,7 +102,7 @@ const Navbar = () => {
 
             {/* Become Seller */}
             {isLarge && (
-              <Button startIcon={<Storefront />} variant="outlined">
+              <Button startIcon={<Storefront />} variant="outlined" onClick={() => redirectTo('/become-seller')}>
                 Become Seller
               </Button>
             )}
