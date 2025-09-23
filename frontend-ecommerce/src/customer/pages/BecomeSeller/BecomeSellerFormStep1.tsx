@@ -1,11 +1,11 @@
 import { Box, TextField } from "@mui/material";
 import React from "react";
 
-const BecomeSellerFormStep1 = ({ formik } : any) => {
+const BecomeSellerFormStep1 = ({ formik }: any) => {
   return (
     <Box>
       {/* Header */}
-      <p className="text-xl font-bold text-centter pb-90">Contact Details</p>
+      <p className="text-xl font-bold text-center pb-5">Contact Details</p>
 
       {/* Form */}
       <div className="space-y-9">

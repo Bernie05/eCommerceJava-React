@@ -7,6 +7,9 @@ import BecomeSeller from './BecomeSeller';
 import { Formik, useFormik } from 'formik';
 import BecomeSellerFormStep1 from './BecomeSellerFormStep1';
 import * as Yup from 'yup';
+import BecomeSellerFormStep2 from './BecomeSellerFormStep2';
+import BecomeSellerFormStep3 from './BecomeSellerFormStep3';
+import BecomeSellerFormStep4 from './BecomeSellerFormStep4';
 
 const SellerAccountForm = () => {
     const steps = ['Tax Details & Mobile', 'Pick up Address', 'Bank Details', 'Supplier Details'];
@@ -75,22 +78,25 @@ const SellerAccountForm = () => {
             </Stepper>
 
             {/* Render the form here */}
-            <section>
-                {activeStep === 0 && <BecomeSellerFormStep1 formik={formik} />}
-                {activeStep === 1 && <div>Form Step 2</div>}
-                {activeStep === 2 && <div>Form Step 3</div>}
-                {activeStep === 3 && <div>Form Step 4</div>}
-            </section>
+            <section className='mt-20 space-y-10'>
+               <div>
+                    {/* 22:25:41 */}
+                    {activeStep === 0 && <BecomeSellerFormStep1 formik={formik} />}
+                    {activeStep === 1 && <BecomeSellerFormStep2 formik={formik} />}
+                    {activeStep === 2 && <BecomeSellerFormStep3 formik={formik} />}
+                    {activeStep === 3 && <BecomeSellerFormStep4 formik={formik} />}
+               </div>
 
-            {/* Button Back and Continue */}
-            <div className='flex item-center justify-between'>
-                <Button variant='contained' disabled={activeStep === 0} onClick={() => handleStep(activeStep, -1)}>
-                    Back
-                </Button>
-                <Button variant='contained' onClick={() => handleStep(activeStep, 1)}>
-                    {activeStep >= steps.length - 1 ? "Create Account" : "Continue"}
-                </Button>
-            </div>
+                {/* Button Back and Continue */}
+                <div className='flex item-center justify-between'>
+                    <Button variant='contained' disabled={activeStep === 0} onClick={() => handleStep(activeStep, -1)}>
+                        Back
+                    </Button>
+                    <Button variant='contained' onClick={() => handleStep(activeStep, 1)}>
+                        {activeStep >= steps.length - 1 ? "Create Account" : "Continue"}
+                    </Button>
+                </div>
+            </section>
         </div>
     )
 }
