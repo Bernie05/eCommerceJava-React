@@ -164,3 +164,7 @@ https://www.npmjs.com/package/formik
 Handle the scheme form validation
 npm i yup
 https://www.npmjs.com/package/yup
+
+For the uploading of image we can used the Cloudnary
+https://cloudinary.com/
+Configuration
