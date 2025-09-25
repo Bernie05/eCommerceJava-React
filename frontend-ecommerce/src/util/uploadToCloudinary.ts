@@ -3,8 +3,6 @@ export const uploadToCloudinary = async (pics: any) => {
     // cloud_name can be found on  the dashboard -> Home -> Dashboard
     // upload_preset can be found on the settings under the upload tab -> make sure unsigned is enabled
 
-    const cloud_name ='dsikfgrqk', upload_preset = 'bern-preset';
-
     if (pics) {
         console.log('pics:', pics);
         const data = new FormData();
