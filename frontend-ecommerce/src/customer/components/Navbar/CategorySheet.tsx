@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 // },
 
 // Level 2 all sub header based on parentCategoryName level1(name) && parentCategoryId - level 1(categoryId)
-const categoryTwo: { [key: string]: any[] } = {
+export const categoryTwo: { [key: string]: any[] } = {
   men: menLevelTwo,
   women: womenLevelTwo,
   electronics: electronicsLevelTwo,
@@ -28,7 +28,7 @@ const categoryTwo: { [key: string]: any[] } = {
 };
 
 // level 3 all category based on the level 2 header fk parentCategoryName level2(name) && parentCategoryId(categoryId)
-const categoryThree: { [key: string]: any[] } = {
+export const categoryThree: { [key: string]: any[] } = {
   men: menLevelThree,
   women: womenLevelThree,
   electronics: electronicsLevelThree,
@@ -36,18 +36,20 @@ const categoryThree: { [key: string]: any[] } = {
   beauty: beautyLevelThree,
 };
 
+export const filterChildByHeaderCategoryId = (
+  category: any,
+  parentCategoryId: string
+) => {
+
+  console.log({category, parentCategoryId})
+  if (category === null || category === '') return [];
+  return category.filter(
+    (child: any) => child.parentCategoryId === parentCategoryId
+  );
+};
+
 const CategorySheet = ({ selectedCategory }: any) => {
   const navigate = useNavigate();
-
-  const filterChildByHeaderCategoryId = (
-    category: any,
-    parentCategoryId: string
-  ) => {
-    if (category === null) return [];
-    return category.filter(
-      (child: any) => child.parentCategoryId === parentCategoryId
-    );
-  };
 
   return (
     <Box className="bg-white shadow-lg lg:h-[500px] overflow-y-auto">

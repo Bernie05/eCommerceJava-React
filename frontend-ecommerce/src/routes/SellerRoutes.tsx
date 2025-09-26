@@ -1,17 +1,17 @@
 import React from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
-import Dashboard from '../../seller/pages/SellerDashboard/Dashboard'
-import Order from '../../seller/pages/Order/Order'
-import AddProduct from '../../seller/pages/Product/AddProduct'
-import Payment from '../../seller/pages/Transaction/Payment'
-import Transaction from '../../seller/pages/Transaction/Transaction'
-import Product from '../../seller/pages/Product/Product'
-import Profile from '../../seller/pages/Account/Profile'
+import Dashboard from '../seller/pages/SellerDashboard/Dashboard'
+import Order from '../seller/pages/Order/Order'
+import AddProduct from '../seller/pages/Product/AddProduct'
+import Payment from '../seller/pages/Transaction/Payment'
+import Transaction from '../seller/pages/Transaction/Transaction'
+import Product from '../seller/pages/Product/Product'
+import Profile from '../seller/pages/Account/Profile'
 
 const SellerRoutes = () => {
     const location = useLocation();
 
-    console.log(" in Route Current location:", location.pathname);
+    console.log("SellerRoutes in Route Current location:", location.pathname);
     return (
         <div>
             <Routes>

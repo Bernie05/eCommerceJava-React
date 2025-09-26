@@ -1,6 +1,6 @@
 import React from 'react'
 import SellerDrawerList from '../../component/SellerDrawerList/SellerDrawerList'
-import SellerRoutes from '../../../routes/SellerRoutes/SellerRoutes'
+import SellerRoutes from '../../../routes/SellerRoutes'
 
 const SellerDashboard = () => {
   // useState for open and close drawer

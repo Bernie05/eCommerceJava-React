@@ -16,17 +16,11 @@ import { AddPhotoAlternate, Close } from "@mui/icons-material";
 import { uploadToCloudinary } from "../../../util/uploadToCloudinary";
 import { filterData } from "../../../data/filter/filterData";
 import { mainCategory } from "../../../data/category/mainCategory";
-
-// Category Level
-
-// Category1 -> will be men, women etc.
-// Category2 -> will based on the category1 and then it will filter
-// Category3 -> it will also based on the Category2
-
-// TODO: 1:00:10:20, map from parent to level 2 to level 3
-const categorySheet = {
-  mainCategory: mainCategory,
-}
+import {
+  categoryThree,
+  categoryTwo,
+  filterChildByHeaderCategoryId,
+} from "../../../customer/components/Navbar/CategorySheet";
 
 const AddProduct = () => {
   const [uploadImage, setUploadImage] = React.useState(false);
@@ -41,9 +35,9 @@ const AddProduct = () => {
       quantity: "",
       color: "",
       images: [],
-      category: "",
-      category2: "",
-      category3: "",
+      category: "men",
+      category2: "men",
+      category3: "men_topwear",
       sizes: "",
     },
     onSubmit: (values) => {
@@ -68,6 +62,9 @@ const AddProduct = () => {
     formik.setFieldValue("images", updatedImage);
   };
 
+  console.log("formik1: ", formik.values.category);
+  console.log("formik2: ", formik.values.category2);
+  console.log("formik3: ", formik.values.category3);
   return (
     <div>
       <form onSubmit={formik.handleSubmit} className="space-y-4 p-4">
@@ -281,13 +278,15 @@ const AddProduct = () => {
                 value={formik.values.category}
                 onChange={formik.handleChange}
               >
-                {categorySheet.mainCategory.map(({ name }, index) => (
-                  <MenuItem value={name} key={index}>
-                    <div className="flex gap-3">
-                      <p>{name}</p>
-                    </div>
-                  </MenuItem>
-                ))}
+                {mainCategory.map(
+                  ({ name, categoryId }, index) => (
+                    <MenuItem value={categoryId} key={index}>
+                      <div className="flex gap-3">
+                        <p>{name}</p>
+                      </div>
+                    </MenuItem>
+                  )
+                )}
               </Select>
             </FormControl>
           </Grid>
@@ -308,19 +307,15 @@ const AddProduct = () => {
                 value={formik.values.category2}
                 onChange={formik.handleChange}
               >
-                {filterData.colors.map(({ name, hex }, index) => (
-                  <MenuItem value={name} key={index}>
-                    <div className="flex gap-3">
-                      <span
-                        style={{ backgroundColor: hex }}
-                        className={`h-4 w-5 rounded-full mt-1 ${
-                          name === "White" ? "border" : ""
-                        }`}
-                      />
-                      <p className="ml-5">{name}</p>
-                    </div>
-                  </MenuItem>
-                ))}
+                {categoryTwo[formik.values.category].map(
+                  ({ name, categoryId, parentCategoryId }, index) => (
+                    <MenuItem value={categoryId} key={index}>
+                      <div className="flex gap-3">
+                        <p className="ml-5">{name}</p>
+                      </div>
+                    </MenuItem>
+                  )
+                )}
               </Select>
             </FormControl>
           </Grid>
@@ -329,7 +324,9 @@ const AddProduct = () => {
           <Grid size={{ xs: 12, md: 4, lg: 4 }}>
             <FormControl
               fullWidth
-              error={formik.touched.category3 && Boolean(formik.errors.category3)}
+              error={
+                formik.touched.category3 && Boolean(formik.errors.category3)
+              }
               required
             >
               <InputLabel id="category3-label">Third Category</InputLabel>
@@ -341,15 +338,12 @@ const AddProduct = () => {
                 value={formik.values.category3}
                 onChange={formik.handleChange}
               >
-                {filterData.colors.map(({ name, hex }, index) => (
-                  <MenuItem value={name} key={index}>
+                {filterChildByHeaderCategoryId(
+                  categoryThree[formik.values.category],
+                  formik.values.category2
+                ).map(({ categoryId, name }: any, index: number) => (
+                  <MenuItem value={categoryId} key={index}>
                     <div className="flex gap-3">
-                      <span
-                        style={{ backgroundColor: hex }}
-                        className={`h-4 w-5 rounded-full mt-1 ${
-                          name === "White" ? "border" : ""
-                        }`}
-                      />
                       <p className="ml-5">{name}</p>
                     </div>
                   </MenuItem>
