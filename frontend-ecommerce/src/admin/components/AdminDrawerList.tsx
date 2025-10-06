@@ -14,7 +14,7 @@ import {
 
 const menu1 = [
   {
-    name: "SellerTable",
+    name: "Seller Table",
     path: "/admin",
     icon: <Dashboard className="text-primary-color" />,
     activeIcon: <Dashboard className="text-white" />,

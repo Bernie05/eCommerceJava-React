@@ -1,4 +1,5 @@
 import {
+  Button,
   FormControl,
   InputLabel,
   MenuItem,
@@ -12,14 +13,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableCell, { tableCellClasses }  from '@mui/material/TableCell';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.head`]: {
+  [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
   },
-  [`&.body`]: {
+  [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
 }));
@@ -116,13 +117,13 @@ const SellerTables = () => {
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCell>Order Id</StyledTableCell>
-                <StyledTableCell align="left">Products</StyledTableCell>
-                <StyledTableCell align="right">
-                  Shipping Address
-                </StyledTableCell>
-                <StyledTableCell align="right">Status</StyledTableCell>
-                <StyledTableCell align="right">Update</StyledTableCell>
+                <StyledTableCell>Seller Name</StyledTableCell>
+                <StyledTableCell align="left">Email</StyledTableCell>
+                <StyledTableCell align="right"> Mobile</StyledTableCell>
+                <StyledTableCell align="right"> GSTIN</StyledTableCell>
+                <StyledTableCell align="right"> Business Name</StyledTableCell>
+                <StyledTableCell align="right">Account Status</StyledTableCell>
+                <StyledTableCell align="right">Change Status</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -135,6 +136,10 @@ const SellerTables = () => {
                   <StyledTableCell align="right">{row.fat}</StyledTableCell>
                   <StyledTableCell align="right">{row.carbs}</StyledTableCell>
                   <StyledTableCell align="right">{row.protein}</StyledTableCell>
+                  <StyledTableCell align="right">{row.protein}</StyledTableCell>
+                  <StyledTableCell align="right">
+                    <Button>Change Status</Button>
+                  </StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
