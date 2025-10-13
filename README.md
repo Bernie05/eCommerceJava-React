@@ -168,3 +168,14 @@ https://www.npmjs.com/package/yup
 For the uploading of image we can used the Cloudnary
 https://cloudinary.com/
 Configuration
+
+But we are going to used the Redux Toolkit
+Handle the API Request In UI
+https://axios-http.com/docs/intro
+npm i axios
+
+Handle the API request using Redux state
+https://redux-toolkit.js.org/
+npm install @reduxjs/toolkit
+npm install react-redux
+npm install redux-thunk

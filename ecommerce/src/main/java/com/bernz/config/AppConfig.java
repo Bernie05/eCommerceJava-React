@@ -43,7 +43,7 @@ public class AppConfig {
             @Override
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                 CorsConfiguration cfg = new CorsConfiguration();
-                cfg.setAllowedOrigins(Collections.singletonList("*"));                                  // Allows requests from any origin (* means all domains).
+                cfg.setAllowedOrigins(Collections.singletonList("http://localhost:3000/"));                                  // Allows requests from any origin (* means all domains).
                 cfg.setAllowedMethods(Collections.singletonList("*"));                                  // Allows all HTTP methods (GET, POST, PUT, DELETE, etc.).
                 cfg.setAllowedHeaders(Collections.singletonList("*"));                                  // Allows all headers in requests.
                 cfg.setAllowCredentials(true);                                           // Allows cookies and credentials to be included in cross-origin requests.
