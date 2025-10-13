@@ -15,7 +15,11 @@ const tabs = [
   },
   {
     tab: "Create Deal",
-    component: <CreateDealForm />
+    component: (
+      <div className="mt-5 flex flex-col justify-center items-center h-[63vh]">
+        <CreateDealForm />
+      </div>
+    )
   }
 ];
 

@@ -11,7 +11,7 @@ public class HomeContoller {
     @GetMapping
     public ApiResponse HomeControllerHandler() {
         ApiResponse apiResponse = new ApiResponse();
-        apiResponse.setMessage("Hello word");
+        apiResponse.setMessage("Welcome to Bernz E-commerce Application");
         return apiResponse;
     }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import Navbar from './customer/components/Navbar/Navbar';
 import { ThemeProvider } from '@mui/material/styles';
@@ -14,9 +14,24 @@ import { Route, Routes } from 'react-router-dom';
 import BecomeSeller from './customer/pages/BecomeSeller/BecomeSeller';
 import SellerDashboard from './seller/pages/SellerDashboard/SellerDashboard';
 import AdminDashboard from './admin/pages/dashboard/AdminDashboard';
+import { fetchProduct } from './services/fetchProduct';
 
 
 function App() {
+  useEffect(() => {
+    console.log("App component mounted");
+
+
+    // const getRecords = async () => {
+    //   const record = await fetchProduct();
+    //   console.log('record retrieved in backend:', record);
+    // };
+
+
+    // getRecords()
+    fetchProduct();
+  }, []);
+
   return (
       <ThemeProvider theme={customTheme}>
         <Navbar />
