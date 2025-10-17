@@ -14,6 +14,10 @@ export const sellerLogin = createAsyncThunk<any, ILoginRequest>('/seller/sellerL
             otp,
         });
 
+        // store the jwt token in the local storage
+        const jwt = response.data.token;
+        localStorage.setItem('jwt', jwt);
+
         console.log('sellerLogin res: ', response.data);
         return response.data;
     } catch(err) {

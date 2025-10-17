@@ -20,7 +20,7 @@ const SellerLoginForm = () => {
 
       if (email && otp) {
         console.log('login');
-        dispatch(sellerLogin({ email, otp }));
+        dispatch(sellerLogin({ email, otp })); // 1:2:30
       } else {
         console.error('Email and OTP are required for login');
       }

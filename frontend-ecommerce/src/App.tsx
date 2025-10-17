@@ -10,34 +10,38 @@ import Review from './customer/pages/Review/Review';
 import Cart from './customer/pages/Cart/Cart';
 import Checkout from './customer/pages/Checkout/Checkout';
 import Account from './customer/pages/Account/Account';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import BecomeSeller from './customer/pages/BecomeSeller/BecomeSeller';
 import SellerDashboard from './seller/pages/SellerDashboard/SellerDashboard';
 import AdminDashboard from './admin/pages/dashboard/AdminDashboard';
-import { fetchProduct } from './services/fetchProduct';
+import { AppSellerState, fetchSellerProfile } from './state/seller/sellerSlice';
+import { useAppDispatch, useAppSelector } from './state/store';
 
 
 function App() {
+  const dispatch = useAppDispatch();  
+  const { seller } = useAppSelector((state) => state);
+  const navigate = useNavigate();
+
   useEffect(() => {
-    console.log("App component mounted");
+    // Fetch products on app load
+    const getJwt = localStorage.getItem('jwt') || '';
 
+    dispatch(fetchSellerProfile(getJwt));
+  }, [dispatch]);
 
-    // const getRecords = async () => {
-    //   const record = await fetchProduct();
-    //   console.log('record retrieved in backend:', record);
-    // };
-
-
-    // getRecords()
-    fetchProduct();
-  }, []);
+  useEffect(() => {
+    if (seller.profile) {
+      navigate('/seller/profile');
+    }
+  }, [seller.profile]);
 
   return (
       <ThemeProvider theme={customTheme}>
         <Navbar />
       <div>
           <Routes>
-            <Route path="/" element={<Home />}/>
+            <Route path="/" element={<Home />} />
             <Route path="/product/:category" element={<Product />} />
             <Route path="/review/:productId" element={<Review />} />
             <Route path="/product-details/:categoryId/:name/:productId" element={<ProductDetails />} />
