@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { api } from "../../config/Api";
 
-interface ISellerProfile {
+interface ISellerProfileState {
     sellers: any[];
     selectedSeller: any | null;
     profile: any | null;
@@ -10,7 +10,7 @@ interface ISellerProfile {
     error: string | null;
 }
 
-const initialState: ISellerProfile = {
+const initialState: ISellerProfileState = {
     sellers: [],
     selectedSeller: null,
     profile: null,
@@ -62,4 +62,4 @@ export const fetchSellerProfile = createAsyncThunk('seller/fetchProfile', async(
 
 // export the reducer to be used in the store
 export default sellerSlice.reducer;
-export const AppSellerState = (state: { seller: ISellerProfile }) => state.seller;
+export const AppSellerState = (state: { seller: ISellerProfileState }) => state.seller;

@@ -21,8 +21,12 @@ import {
   categoryTwo,
   filterChildByHeaderCategoryId,
 } from "../../../customer/components/Navbar/CategorySheet";
+import { useAppDispatch } from "../../../state/store";
+import { createProduct } from "../../../state/seller/sellerProductSlice";
+import { IProduct } from "../../../type/ProductType";
 
 const AddProduct = () => {
+  const dispatch = useAppDispatch();
   const [uploadImage, setUploadImage] = React.useState(false);
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
 
@@ -30,9 +34,9 @@ const AddProduct = () => {
     initialValues: {
       title: "",
       description: "",
-      mrpPrice: "",
-      sellingPrice: "",
-      quantity: "",
+      mrpPrice: 0,
+      sellingPrice: 0,
+      quantity: 0,
       color: "",
       images: [],
       category: "men",
@@ -42,6 +46,10 @@ const AddProduct = () => {
     },
     onSubmit: (values) => {
       console.log(values);
+      const product = values;
+      const getToken = localStorage.getItem("jwt") || "";
+  
+      dispatch(createProduct({ reqProduct: product, jwt: getToken }));
     },
   });
 
