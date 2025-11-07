@@ -1,5 +1,15 @@
 export interface ISeller {
-
+    id?: number;
+    mobile: string;
+    otp: string;
+    GSTIN: string;
+    pickupAddress: IPickupAddress;
+    bankDetails: IBankDetails;
+    sellerName: string;
+    email: string;
+    businessDetails: IBusinessDetails;
+    password: string;
+    accountStatus: string;
 }
 
 export interface IPickupAddress {
@@ -22,19 +32,19 @@ export interface IBusinessDetails {
     businessName: string;
 }
 
-export interface Seller {
-    id?: number;
-    mobile: string;
-    otp: string;
-    GSTIN: string;
-    pickupAddress: IPickupAddress;
-    bankDetails: IBankDetails;
-    sellerName: string;
-    email: string;
-    businessDetails: IBusinessDetails;
-    password: string;
-    accountStatus: string;
-}
+// export interface Seller {
+//     id?: number;
+//     mobile: string;
+//     otp: string;
+//     GSTIN: string;
+//     pickupAddress: IPickupAddress;
+//     bankDetails: IBankDetails;
+//     sellerName: string;
+//     email: string;
+//     businessDetails: IBusinessDetails;
+//     password: string;
+//     accountStatus: string;
+// }
 
 export interface ISellerReport {
     id: number;

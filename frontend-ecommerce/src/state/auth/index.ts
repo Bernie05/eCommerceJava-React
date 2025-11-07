@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from "../../config/Api";
+import { create } from "domain";
 
 export interface ILoginRequest {
   email: string;
@@ -39,3 +40,13 @@ export const signIn = createAsyncThunk<any, ILoginRequest>('/auth/signIn', async
         throw err;
     }
 });
+
+export const logout = createAsyncThunk<any, any>('/auth/logout', async(navigate) => {
+    try {
+        localStorage.clear();
+        navigate('/');
+    }
+    catch(err) {
+        console.error("Failed to logout", err);
+    }
+})
