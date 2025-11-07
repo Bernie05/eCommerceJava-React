@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FilterSection from "./FilterSection";
 import ProductCard from "./ProductCard";
 import {
@@ -14,12 +14,21 @@ import {
   useTheme,
 } from "@mui/material";
 import { FilterAlt } from "@mui/icons-material";
+import { useAppDispatch, useAppSelector } from "../../../state/store";
+import { fetchProduct } from "../../../services/fetchProduct";
+import { useParams, useSearchParams } from "react-router-dom";
+import { fetchAllProducts } from "../../../state/customer/ProductSlice";
 
 const Product = () => {
   const theme = useTheme();
   const isLarge = useMediaQuery(theme.breakpoints.up("lg"));
   const [sort, setSort] = useState();
   const [page, setPage] = useState(1);
+  const dispatch = useAppDispatch();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { category } = useParams();
+  const products = useAppSelector((state) => state.product.products) || [];
 
   const handleSortChange = (e: any) => {
     setSort(e.target.value);
@@ -28,6 +37,14 @@ const Product = () => {
   const handlePageChange = (value: number) => {
     setPage(value);
   };
+
+  useEffect(() => {
+    const [minPrice, maxPrice] = searchParams.get('price')?.split("-") || [];
+    const color = searchParams.get('color') || "";
+    const size = searchParams.get('size') || "";
+
+    dispatch(fetchAllProducts({ }));
+  }, [category, dispatch, searchParams]);
 
   return (
     <div className="-z-10 mt-10">
@@ -76,8 +93,8 @@ const Product = () => {
           </div>
           <Divider />
           <section className="products_section grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-5 px-5 justify-center">
-            {[1, 1, 1, 1, 1, 1].map(() => (
-              <ProductCard />
+            {products.map((item) => (
+              <ProductCard item={item} />
             ))}
           </section>
 
