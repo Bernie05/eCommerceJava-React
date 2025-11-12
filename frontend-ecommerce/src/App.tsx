@@ -16,6 +16,7 @@ import SellerDashboard from './seller/pages/SellerDashboard/SellerDashboard';
 import AdminDashboard from './admin/pages/dashboard/AdminDashboard';
 import { AppSellerState, fetchSellerProfile } from './state/seller/sellerSlice';
 import { useAppDispatch, useAppSelector } from './state/store';
+import Auth from './customer/pages/Auth/Auth';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
       <div>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Auth />} />
             <Route path="/product/:category" element={<Product />} />
             <Route path="/review/:productId" element={<Review />} />
             <Route path="/product-details/:categoryId/:name/:productId" element={<ProductDetails />} />

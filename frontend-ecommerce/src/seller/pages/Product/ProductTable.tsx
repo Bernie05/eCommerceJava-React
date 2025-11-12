@@ -41,7 +41,7 @@ export default function ProductTable() {
     const getToken = localStorage.getItem("jwt") || '';
 
     dispatch(fetchSellerProducts(getToken));
-  }, []);
+  }, [dispatch]);
 
   return (
     <TableContainer component={Paper}>
@@ -72,7 +72,7 @@ export default function ProductTable() {
                 </div>
               </StyledTableCell>
               <StyledTableCell align="left">{product.title}</StyledTableCell>
-              <StyledTableCell align="right">{product.mrpPrince}</StyledTableCell>
+              <StyledTableCell align="right">{product.mrpPrice}</StyledTableCell>
               <StyledTableCell align="right">{product.sellingPrice}</StyledTableCell>
               <StyledTableCell align="right">{product.color}</StyledTableCell>
               <StyledTableCell align="right">
