@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import { teal } from "@mui/material/colors";
 import { Button, Divider } from "@mui/material";
@@ -14,9 +14,24 @@ import {
 } from "@mui/icons-material";
 import SimilarProduct from "./SimilarProduct";
 import ReviewCard from "../Review/ReviewCard";
+import { useAppDispatch, useAppSelector } from "../../../state/store";
+import { useParams } from "react-router-dom";
+import { fetchProductById } from "../../../state/customer/ProductSlice";
 
 const ProductDetails = () => {
   let [quantity, setQuantity] = useState(1);
+  const dispatch = useAppDispatch();
+  const { productId } = useParams();
+  const { productDetails } = useAppSelector((state) => state.product);
+  const [activeImage, setActiveImage] = useState(0);
+
+  useEffect(() => {
+    dispatch(fetchProductById(Number(productId)));
+  }, [dispatch, productId]);
+
+  const handleActiveImage = (index: number) => {
+    setActiveImage(index);
+  };
 
   return (
     <div className="px-5 lg:px-20 pt-10">
@@ -25,20 +40,21 @@ const ProductDetails = () => {
         <section className="flex flex-col lg:flex-row gap-5">
           {/* 4 Image */}
           <div className="w-full lg:w-[15%] flex flex-wrap lg:flex-col gap-3">
-            {[1, 1, 1, 1].map(() => (
+            {productDetails?.images.map((picUrl, idx) => (
               <img
+                onClick={() => handleActiveImage(idx)}
                 className="lg:w-full w-[50px] cursor-pointer rounded-md"
-                src="https://dynamic.zacdn.com/tcGl3DY3nPGa69zCg5jm5dBkPnI=/filters:quality(70):format(webp)/https://static-ph.zacdn.com/p/quirkyt-7068-7307303-1.jpg"
+                src={picUrl}
                 alt=""
               />
             ))}
           </div>
 
-          {/* 1 Image */}
+          {/* Active Image */}
           <div className="w-full lg:w-[85%]">
             <img
               className="w-full rounded"
-              src="https://dynamic.zacdn.com/tcGl3DY3nPGa69zCg5jm5dBkPnI=/filters:quality(70):format(webp)/https://static-ph.zacdn.com/p/quirkyt-7068-7307303-1.jpg"
+              src={productDetails?.images[activeImage]}
               alt=""
             />
           </div>
@@ -47,9 +63,9 @@ const ProductDetails = () => {
         {/* Details */}
         <section>
           <h1 className="font-bold text-lg text-primary-color">
-            Details Title
+            {productDetails?.seller?.businessDetails.businessName}
           </h1>
-          <p className="text-gray-500 font-semibold">Women black shirt</p>
+          <p className="text-gray-500 font-semibold">{productDetails?.title}</p>
 
           {/* Rating Section */}
           <div className="flex justify-between items-center py-2 border w-[180px] px-3 mt-5">
@@ -66,9 +82,9 @@ const ProductDetails = () => {
           {/* Product Prices & offer*/}
           <div>
             <div className="price flex items-center gap-3 mt-5 text-2xl">
-              <span className="font-semibold text-gray-800">PHP 400</span>
-              <span className="line-through text-gray-400">PHP 700</span>
-              <span className="text-primary-color">60%</span>
+              <span className="font-semibold text-gray-800">{productDetails?.sellingPrice}</span>
+              <span className="line-through text-gray-400">{productDetails?.mrpPrice}</span>
+              <span className="text-primary-color">{productDetails?.discountPercentage}%</span>
             </div>
 
             <p className="text-sm">
@@ -139,11 +155,7 @@ const ProductDetails = () => {
           {/* Product Description */}
           <div className="mt-5">
             <p>
-              Sample Description Sample Description Sample Description Sample
-              Description Sample Description Sample Description Sample
-              Description Sample Description Sample Description Sample
-              Description Sample Description Sample Description Sample
-              Description Sample Description.
+              {productDetails?.description}
             </p>
           </div>
 

@@ -3,6 +3,9 @@ export const uploadToCloudinary = async (pics: any) => {
     // cloud_name can be found on  the dashboard -> Home -> Dashboard
     // upload_preset can be found on the settings under the upload tab -> make sure unsigned is enabled
 
+    // time stop: 1:04:30:00
+    const cloud_name ='dsikfgrqk', upload_preset = 'bern-preset';
+
     if (pics) {
         console.log('pics:', pics);
         const data = new FormData();
@@ -23,4 +26,4 @@ export const uploadToCloudinary = async (pics: any) => {
     else {
         console.log("error: pics not found");
     }
-}
+} 
