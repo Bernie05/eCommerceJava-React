@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import "./css/ProductCard.css";
 import { Button } from "@mui/material";
 import { teal } from "@mui/material/colors";
 import { Favorite, ModeComment } from "@mui/icons-material";
 import { IProduct } from "../../../type/ProductType";
+import { useNavigate } from "react-router-dom";
 // const images = [
 //   "https://dynamic.zacdn.com/tcGl3DY3nPGa69zCg5jm5dBkPnI=/filters:quality(70):format(webp)/https://static-ph.zacdn.com/p/quirkyt-7068-7307303-1.jpg",
 //   "https://m.media-amazon.com/images/I/71JOCc43j3L._UY1100_.jpg",
@@ -16,6 +17,7 @@ interface IProductCardProps {
 const ProductCard = ({ item }: IProductCardProps) => {
   const [currImg, setCurrImg] = useState(0);
   const [isHover, setIsHover] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // interval of 3sec ->
@@ -35,9 +37,13 @@ const ProductCard = ({ item }: IProductCardProps) => {
     return () => clearInterval(interval);
   }, [isHover]);
 
+  const handleRedirect = (item: IProduct) => {
+    navigate(`/product-details/${item.category?.categoryId}/${item.title}/${item.id}`);
+  }
+
   return (
     <>
-      <div className="group px-4 relative">
+      <div onClick={() => handleRedirect(item)} className="group px-4 relative">
         {/* Card Images & Button*/}
         <div
           className="card"
