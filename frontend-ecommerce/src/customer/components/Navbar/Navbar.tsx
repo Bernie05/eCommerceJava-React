@@ -86,7 +86,7 @@ const Navbar = () => {
               </Button>
             ) : (
               // Login button
-              <Button variant="contained">Login</Button>
+              <Button onClick={() => redirectTo('/login')} variant="contained">Login</Button>
             )}
 
             {/* Wishlist */}
