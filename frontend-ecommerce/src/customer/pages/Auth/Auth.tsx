@@ -8,7 +8,7 @@ const Auth = () => {
 
   return (
     <div className='flex justify-center items-center h-[90vh]'>
-      <div className="max-w-md h-[85vh] rounded-md shadow-lg">
+      <div className="max-w-md h-[85vh] rounded-md shadow-lg w-full">
         <img src="#" alt="#" className="w-full rounded-t-md" />
 
         <div className="mt-8 px-10">

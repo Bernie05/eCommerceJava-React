@@ -3,7 +3,7 @@ import { useFormik } from 'formik'
 import React from "react";
 import { useAppDispatch } from "../../../state/store";
 import { Button, TextField } from "@mui/material";
-import { sendLoginSignupOTP } from "../../../state/auth";
+import { sendLoginSignupOTP, signIn } from "../../../state/auth";
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();
@@ -15,6 +15,7 @@ const LoginForm = () => {
     },
     onSubmit: (values) => {
       console.log("formData: ", values);
+      dispatch(signIn(values));
     },
   });
 
